@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   root to: "homes#top"
   get "home/about" => "homes#about", as: "about"
+  get "search" => "searches#search"
 
   patch "books/:id" => "books#update", as: "update_book"
   patch "users/:id" => "users#update", as: "update_user"

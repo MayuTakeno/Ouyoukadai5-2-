@@ -8,6 +8,21 @@ class Book < ApplicationRecord
   validates :title, presence:true
   validates :body, presence:true, length:{ maximum: 200 }
 
+  #検索方法分岐
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @book = Book.where("title LIKE?", "#{word}")
+    elsif search == "forword_match"
+      @book = Book.where("title LIKE?", "#{word}%")
+    elsif search == "backword_match"
+      @book = Book.where("title LIKE?", "%#{word}")
+    elsif search == "partial_match"
+      @book = Book.where("title LIKE?", "%#{word}%")
+    else
+      @book = Book.all
+    end
+  end
+
   def get_image
     if image.attached?
       image
